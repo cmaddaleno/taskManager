@@ -1,0 +1,46 @@
+<html ng-app="mpApp">
+    <head>
+        <title>Demo MP</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/lib/angular.js"></script>
+        <script src="js/lib/angular-route.js"></script>
+        <script src="js/lib/angular-ui-router.js"></script>
+        <script src="js/lib/ocLazyLoad.js"></script>
+        <script src="js/lib/angular-resource.js"></script>
+        <script src="app/app.js"></script>
+       
+
+        <!-- orden logico -->
+        <script src="app/ui/module.js"></script>
+        <script src="app/public/module.js"></script>
+        <script src=""></script>
+        <script src=""></script>
+
+    </head>
+    <body data-smart-page-title="">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Demo AngularJS</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a  ui-sref="public.vehicle">Autos</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Hola mundo</h1>
+                <p>Este es un demo elaborado con AngularJS por el equipo de
+                    Nabenik, sus aliados de negocio.</p>
+            </div>
+        </div>
+        <div class="container">
+            <div ui-view="root@app"></div>
+        </div>
+    </body>
+</html>
