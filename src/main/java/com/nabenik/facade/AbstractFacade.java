@@ -1,49 +1,121 @@
-package com.nabenik.dao;
+package com.nabenik.facade;
 
-import com.nabenik.model.Automovil;
 import java.util.List;
-import javax.ejb.Stateless;
+import java.util.Map;
+import java.util.Set;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 /**
- * DAO for Post
+ *
+ * @author ludwin.ayala
+ * @param <T>
  */
-@Stateless
-public class AutomovilDao {
-	@PersistenceContext(unitName = "demo-persistence-unit")
-	private EntityManager em;
+public abstract class AbstractFacade<T> {
 
-	public void create(Automovil entity) {
-		em.persist(entity);
-	}
+    private final Class<T> entityClass;
 
-	public void deleteById(Long id) {
-		Automovil entity = em.find(Automovil.class, id);
-		if (entity != null) {
-			em.remove(entity);
-		}
-	}
+    public AbstractFacade(Class<T> entityClass) {
+        this.entityClass = entityClass;
+    }
 
-	public Automovil findById(Long id) {
-		return em.find(Automovil.class, id);
-	}
+    protected abstract EntityManager getEntityManager();
 
-	public Automovil update(Automovil entity) {
-		return em.merge(entity);
-	}
+    public T create(T entity) {
+        getEntityManager().persist(entity);
+        getEntityManager().flush();
+        return entity;
+    }
 
-	public List<Automovil> listAll(Integer startPosition, Integer maxResult) {
-		TypedQuery<Automovil> findAllQuery = em.createQuery(
-				"SELECT DISTINCT p FROM Automovil p ORDER BY p.id", Automovil.class);
-		if (startPosition != null) {
-			findAllQuery.setFirstResult(startPosition);
-		}
-		if (maxResult != null) {
-			findAllQuery.setMaxResults(maxResult);
-		}
-		return findAllQuery.getResultList();
-	}
+    public T edit(T entity) {
+        getEntityManager().merge(entity);
+        getEntityManager().flush();
+        return entity;
+    }
+
+    public void delete(Object id) {
+        Object ref = getEntityManager().getReference(entityClass, id);
+        getEntityManager().remove(ref);
+    }
+
+    public T remove(T entity) {
+        getEntityManager().remove(getEntityManager().merge(entity));
+        getEntityManager().flush();
+        return entity;
+    }
+
+    public T find(Object id) {
+        return getEntityManager().find(entityClass, id);
+    }
+
+    public List<T> findAll() {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+
+    public List<T> findRange(int[] range) {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        q.setMaxResults(range[1] - range[0] + 1);
+        q.setFirstResult(range[0]);
+        return q.getResultList();
+    }
+
+    public int count() {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
+        cq.select(getEntityManager().getCriteriaBuilder().count(rt));
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<T> findWithNamedQuery(String namedQueryName) {
+        return getEntityManager().createNamedQuery(namedQueryName).getResultList();
+    }
+
+    public List findWithNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
+        Set<Map.Entry<String, Object>> rawParameters = parameters.entrySet();
+        Query query = getEntityManager().createNamedQuery(namedQueryName);
+        if (resultLimit > 0) {
+            query.setMaxResults(resultLimit);
+        }
+        for (Map.Entry<String, Object> entry : rawParameters) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+        return query.getResultList();
+    }
+
+    public List<T> findWithQuery(String queryName) {
+        return getEntityManager().createQuery(queryName).getResultList();
+    }
+
+    public List<T> findByNativeQuery(String sql) {
+        return getEntityManager().createNativeQuery(sql, entityClass).getResultList();
+    }
+
+    public T findSingleWithNamedQuery(String namedQueryName) {
+        T result = null;
+        try {
+            result = (T) getEntityManager().createNamedQuery(namedQueryName).getSingleResult();
+        } catch (NoResultException e) {
+        }
+        return result;
+    }
+
+    public T findSingleWithNamedQuery(String namedQueryName, Map<String, Object> parameters) {
+        Set<Map.Entry<String, Object>> rawParameters = parameters.entrySet();
+        Query query = getEntityManager().createNamedQuery(namedQueryName);
+        for (Map.Entry<String, Object> entry : rawParameters) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+        T result = null;
+        try {
+            result = (T) query.getSingleResult();
+        } catch (NoResultException e) {
+        }
+        return result;
+    }
 }

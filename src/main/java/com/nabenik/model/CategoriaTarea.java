@@ -6,62 +6,67 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class Automovil implements Serializable {
+public class CategoriaTarea implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    @Column(name = "idCategoriaTarea", updatable = false, nullable = false)
+    private Integer idCategoriaTarea;
+   
+    @Column
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Tarea idTarea;
     
     @Column
-    private int cantPuertas;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Categoria idCategoria;
 
-    @Column
-    private String color;
-
-    public int getCantPuertas() {
-        return cantPuertas;
+    public Integer getIdCategoriaTarea() {
+        return idCategoriaTarea;
     }
 
-    public void setCantPuertas(int cantPuertas) {
-        this.cantPuertas = cantPuertas;
+    public void setIdCategoriaTarea(Integer idCategoriaTarea) {
+        this.idCategoriaTarea = idCategoriaTarea;
     }
 
-    public String getColor() {
-        return color;
+    public Tarea getIdTarea() {
+        return idTarea;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setIdTarea(Tarea idTarea) {
+        this.idTarea = idTarea;
     }
 
+    public Categoria getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Categoria idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
+   
     
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Automovil)) {
+        if (!(obj instanceof CategoriaTarea)) {
             return false;
         }
-        Automovil other = (Automovil) obj;
-        if (id != null) {
-            if (!id.equals(other.id)) {
+        CategoriaTarea other = (CategoriaTarea) obj;
+        if (idCategoriaTarea != null) {
+            if (!idCategoriaTarea.equals(other.idCategoriaTarea)) {
                 return false;
             }
         }
@@ -72,7 +77,7 @@ public class Automovil implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((idCategoriaTarea == null) ? 0 : idCategoriaTarea.hashCode());
         return result;
     }
 

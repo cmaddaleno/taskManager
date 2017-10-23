@@ -2,6 +2,7 @@ package com.nabenik.model;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,56 +11,61 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class Automovil implements Serializable {
+public class Estado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    private Integer id;
     
     @Column
-    private int cantPuertas;
+    private String descripcion;
 
     @Column
-    private String color;
+    private Boolean activo;
 
-    public int getCantPuertas() {
-        return cantPuertas;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCantPuertas(int cantPuertas) {
-        this.cantPuertas = cantPuertas;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(final Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+    
+
+    
+
+    
+    
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Automovil)) {
+        if (!(obj instanceof Estado)) {
             return false;
         }
-        Automovil other = (Automovil) obj;
+        Estado other = (Estado) obj;
         if (id != null) {
             if (!id.equals(other.id)) {
                 return false;

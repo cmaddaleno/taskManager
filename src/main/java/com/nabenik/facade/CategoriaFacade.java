@@ -1,49 +1,28 @@
-package com.nabenik.dao;
+package com.nabenik.facade;
 
-import com.nabenik.model.Automovil;
-import java.util.List;
+import com.nabenik.model.Categoria;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-
 
 /**
  * DAO for Post
  */
 @Stateless
-public class AutomovilDao {
-	@PersistenceContext(unitName = "demo-persistence-unit")
-	private EntityManager em;
+public class CategoriaFacade extends AbstractFacade<Categoria> {
 
-	public void create(Automovil entity) {
-		em.persist(entity);
-	}
+    @PersistenceContext(unitName = "demo-persistence-unit")
+    private EntityManager em;
 
-	public void deleteById(Long id) {
-		Automovil entity = em.find(Automovil.class, id);
-		if (entity != null) {
-			em.remove(entity);
-		}
-	}
+   
 
-	public Automovil findById(Long id) {
-		return em.find(Automovil.class, id);
-	}
+    public CategoriaFacade(Class<Categoria> entityClass) {
+        super(entityClass);
+    }
 
-	public Automovil update(Automovil entity) {
-		return em.merge(entity);
-	}
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
-	public List<Automovil> listAll(Integer startPosition, Integer maxResult) {
-		TypedQuery<Automovil> findAllQuery = em.createQuery(
-				"SELECT DISTINCT p FROM Automovil p ORDER BY p.id", Automovil.class);
-		if (startPosition != null) {
-			findAllQuery.setFirstResult(startPosition);
-		}
-		if (maxResult != null) {
-			findAllQuery.setMaxResults(maxResult);
-		}
-		return findAllQuery.getResultList();
-	}
 }

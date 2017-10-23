@@ -2,53 +2,65 @@ package com.nabenik.model;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class Automovil implements Serializable {
+public class TipoTarea implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
-    
-    @Column
-    private int cantPuertas;
+    private Integer id;
 
     @Column
-    private String color;
+    private String descripcion;
 
-    public int getCantPuertas() {
-        return cantPuertas;
+    @Column
+    private Boolean activo;
+
+    @OneToMany(mappedBy = "idCategoria", fetch = FetchType.LAZY)
+    private List<Tarea> listTareas;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setCantPuertas(int cantPuertas) {
-        this.cantPuertas = cantPuertas;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(final Long id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+
+    public List<Tarea> getListTareas() {
+        return listTareas;
+    }
+
+    public void setListTareas(List<Tarea> listTareas) {
+        this.listTareas = listTareas;
     }
 
     @Override
@@ -56,10 +68,10 @@ public class Automovil implements Serializable {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Automovil)) {
+        if (!(obj instanceof TipoTarea)) {
             return false;
         }
-        Automovil other = (Automovil) obj;
+        TipoTarea other = (TipoTarea) obj;
         if (id != null) {
             if (!id.equals(other.id)) {
                 return false;

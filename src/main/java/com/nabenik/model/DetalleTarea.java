@@ -6,49 +6,62 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class Automovil implements Serializable {
+public class DetalleTarea implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
-    
-    @Column
-    private int cantPuertas;
+    private Integer id;
 
     @Column
-    private String color;
+    @Size(min = 1, max = 1000)
+    private String descripcion;
 
-    public int getCantPuertas() {
-        return cantPuertas;
+    @Column
+    private Boolean activo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Tarea idTarea;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setCantPuertas(int cantPuertas) {
-        this.cantPuertas = cantPuertas;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(final Long id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+
+    public Tarea getIdTarea() {
+        return idTarea;
+    }
+
+    public void setIdTarea(Tarea idTarea) {
+        this.idTarea = idTarea;
     }
 
     @Override
@@ -56,10 +69,10 @@ public class Automovil implements Serializable {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Automovil)) {
+        if (!(obj instanceof DetalleTarea)) {
             return false;
         }
-        Automovil other = (Automovil) obj;
+        DetalleTarea other = (DetalleTarea) obj;
         if (id != null) {
             if (!id.equals(other.id)) {
                 return false;

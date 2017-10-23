@@ -1,7 +1,9 @@
 package com.nabenik.rest;
 
-import com.nabenik.dao.AutomovilDao;
-import com.nabenik.model.Automovil;
+import com.nabenik.facade.CategoriaFacade;
+import com.nabenik.facade.CategoriaTareaFacade;
+import com.nabenik.model.Categoria;
+import com.nabenik.model.CategoriaTarea;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -18,44 +20,39 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
-import javax.inject.Inject;
 
 /**
  *
  */
 @Stateless
-@Path("/automovil")
+@Path("/categoriaTarea")
 @Produces("application/json")
 @Consumes("application/json")
-public class AutomovilEndpoint {
+public class CategoriaTareaEndpoint {
 
-    @Inject
-    AutomovilDao automovilService;
+    
+    CategoriaTareaFacade categoriaTareaService;
 
     @POST
-    public Response create(Automovil entity) {
-        automovilService.create(entity);
+    public Response create(CategoriaTarea entity) {
+        categoriaTareaService.create(entity);
 
-        return Response.created(UriBuilder.fromResource(AutomovilEndpoint.class)
-                        .path(String.valueOf(entity.getId())).build()).build();
+        return Response.created(UriBuilder.fromResource(CategoriaTareaEndpoint.class)
+                        .path(String.valueOf(entity.getIdCategoriaTarea())).build()).build();
     }
 
     @DELETE
     @Path("/{id:[0-9][0-9]*}")
-    public Response deleteById(@PathParam("id") Long id) {
-        Automovil entity = automovilService.findById(id);
-        if (entity == null) {
-            return Response.status(Status.NOT_FOUND).build();
-        }
-        automovilService.deleteById(id);
+    public Response deleteById(@PathParam("id") Integer id) {
+        categoriaTareaService.delete(id);
         return Response.noContent().build();
     }
 
     @GET
     @Path("/{id:[0-9][0-9]*}")
-    public Response findById(@PathParam("id") Long id) {
+    public Response findById(@PathParam("id") Integer id) {
 
-        Automovil entity = automovilService.findById(id);
+        CategoriaTarea entity = categoriaTareaService.find(id);
         if (entity == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
@@ -63,30 +60,30 @@ public class AutomovilEndpoint {
     }
 
     @GET
-    public List<Automovil> listAll(@QueryParam("start") Integer startPosition,
+    public List<CategoriaTarea> listAll(@QueryParam("start") Integer startPosition,
             @QueryParam("max") Integer maxResult) {
         
-        final List<Automovil> results = automovilService.listAll(startPosition, maxResult);
+        final List<CategoriaTarea> results = categoriaTareaService.findAll();
         return results;
     }
 
     @PUT
     @Path("/{id:[0-9][0-9]*}")
-    public Response update(@PathParam("id") Long id, Automovil entity) {
+    public Response update(@PathParam("id") Integer id, CategoriaTarea entity) {
         if (entity == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
         if (id == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
-        if (!id.equals(entity.getId())) {
+        if (!id.equals(entity.getIdCategoriaTarea())) {
             return Response.status(Status.CONFLICT).entity(entity).build();
         }
-        if (automovilService.findById(id) == null) {
+        if (categoriaTareaService.find(id) == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
         try {
-            entity = automovilService.update(entity);
+            entity = categoriaTareaService.edit(entity);
         } catch (OptimisticLockException e) {
             return Response.status(Response.Status.CONFLICT)
                     .entity(e.getEntity()).build();
