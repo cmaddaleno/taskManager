@@ -1,0 +1,33 @@
+<div id="demo" >    
+    <form name="nabform" class="form-horizontal">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Tarea</legend>
+
+            <div class="field" ng-class="{ 'has-error': nabform.userId.$invalid }">
+                <textarea id="code" placeholder="Describe la nueva tarea" ui-tinymce="opcionesTinymce" ng-model="tarea" >
+                    
+                </textarea>
+            </div>
+
+            <!-- Text input-->
+            
+
+
+
+
+            <!-- Button (Double) -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="ok"></label>
+                <div class="col-md-8">
+                    <button id="ok" name="ok" class="btn btn-success" ng-click="save()" ng-disabled="nabform.$invalid">Aceptar</button>
+                    <button id="cancel" name="cancel" class="btn btn-danger" ng-click="cancel()">Cancelar</button>
+                    <button ng-if="location != null" id="remove" name="cancel" class="btn btn-danger" ng-click="delete()">Eliminar</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+</div>

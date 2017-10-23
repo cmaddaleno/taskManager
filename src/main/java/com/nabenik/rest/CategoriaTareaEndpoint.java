@@ -38,7 +38,7 @@ public class CategoriaTareaEndpoint {
         categoriaTareaService.create(entity);
 
         return Response.created(UriBuilder.fromResource(CategoriaTareaEndpoint.class)
-                        .path(String.valueOf(entity.getIdCategoriaTarea())).build()).build();
+                        .path(String.valueOf(entity.getId())).build()).build();
     }
 
     @DELETE
@@ -76,7 +76,7 @@ public class CategoriaTareaEndpoint {
         if (id == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
-        if (!id.equals(entity.getIdCategoriaTarea())) {
+        if (!id.equals(entity.getId())) {
             return Response.status(Status.CONFLICT).entity(entity).build();
         }
         if (categoriaTareaService.find(id) == null) {

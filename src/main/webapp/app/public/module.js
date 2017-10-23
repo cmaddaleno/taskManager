@@ -1,9 +1,10 @@
 
-var module = angular.module('mpApp.public', ['mpApp.ui', 'ui.router', 'ngResource']);
+var module = angular.module('mpApp.public', ['mpApp.ui', 'ui.router', 'ngResource', 'html5.sortable', 'ngSanitize', 'ui.tinymce']);
 
 module.constant('comm', {
     url: '/taskManager/rest'
 });
+
 
 module.config(function ($urlRouterProvider, $stateProvider) {
     $urlRouterProvider.otherwise('/')
@@ -15,81 +16,55 @@ module.config(function ($urlRouterProvider, $stateProvider) {
     });
 
     
-    $stateProvider.state('public.vehicle', {
-        url: '/autos',
+    $stateProvider.state('public.tarea', {
+        url: '/tarea',
         data: {
-            title: 'Vehicle'
+            title: 'Tareas'
         },
         views: {
             "root@app": {
-                controller: 'searchAutoController',
-                templateUrl: 'app/public/automovil/search.html'
+                controller: 'searchTareaController',
+                templateUrl: 'app/public/tarea/search.html'
             }
         }, resolve: {
-            searchVehicleFiles: function ($ocLazyLoad) {
-                return $ocLazyLoad.load(['app/public/automovil/auto-controller.js',
-                    'app/public/automovil/auto-resource.js']);
+            searchTareaFiles: function ($ocLazyLoad) {
+                return $ocLazyLoad.load(['app/public/tarea/tarea-controller.js',
+                    'app/public/tarea/tarea-resource.js']);
             }
         }
     });
 
-    $stateProvider.state('public.vehicle.new', {
-        url: '/new-auto',
+    $stateProvider.state('public.tarea.new', {
+        url: '/new-tarea',
         views: {
             "root@app": {
-                templateUrl: 'app/public/automovil/detail.html',
-                controller: 'newAutoController'
+                templateUrl: 'app/public/tarea/detail.html',
+                controller: 'newTareaController'
             }
         }, resolve: {
-            searchVehicleFiles: function ($ocLazyLoad) {
-                return $ocLazyLoad.load(['app/public/automovil/auto-controller.js',
-                    'app/public/automovil/auto-resource.js']);
+            searchTareaFiles: function ($ocLazyLoad) {
+                return $ocLazyLoad.load(['app/public/tarea/tarea-controller.js',
+                    'app/public/tarea/tarea-resource.js']);
             }
         }
 
     });
 
-    $stateProvider.state('public.vehicle.edit', {
-        url: '/update-vehicle/:id',
+    $stateProvider.state('public.tarea.edit', {
+        url: '/update-tarea/:id',
         views: {
             "root@app": {
-                templateUrl: 'app/public/automovil/detail.html',
-                controller: 'editAutoController'
+                templateUrl: 'app/public/tarea/detail.html',
+                controller: 'editTareaController'
             }
         }, resolve: {
-            searchVehicleFiles: function ($ocLazyLoad) {
-                return $ocLazyLoad.load(['app/public/automovil/auto-controller.js',
-                    'app/public/automovil/auto-resource.js']);
+            searchTareasFiles: function ($ocLazyLoad) {
+                return $ocLazyLoad.load(['app/public/tarea/tarea-controller.js',
+                    'app/public/automovil/tarea-resource.js']);
             }
         }
 
     });
 
-//
-//module.config(function($routeProvider, $locationProvider){
-//    $locationProvider.hashPrefix();
-//    $routeProvider
-//    .when('/posts', {
-//        templateUrl: 'app/public/posts/search.html',
-//        controller: 'searchPostController'
-//    })
-//    .when('/new-post', {
-//        templateUrl: 'app/public/posts/detail.html',
-//        controller: 'newPostController'
-//    })
-//    .when('/update-post/:id', {
-//        templateUrl: 'app/public/posts/detail.html',
-//        controller: 'editPostController'
-//    })
-//    .when('/promises', {
-//        templateUrl: 'app/public/promises/detail.html',
-//        controller: 'promisesController'
-//    }).when('/demo', {
-//        templateUrl: 'app/public/demo/demo.html',
-//        controller: 'demoController'
-//    })
-//    .when('/demo-directives', {
-//        templateUrl: 'app/public/demo-directives/demo-directives.html',
-//        controller: 'demoDirectivesController'
-//    });
+
 });

@@ -28,7 +28,7 @@ public class TipoTarea implements Serializable {
     @Column
     private Boolean activo;
 
-    @OneToMany(mappedBy = "idCategoria", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idTipoTarea", fetch = FetchType.LAZY)
     private List<Tarea> listTareas;
 
     public Integer getId() {

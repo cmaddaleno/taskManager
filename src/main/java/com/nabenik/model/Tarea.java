@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -53,15 +54,15 @@ public class Tarea implements Serializable {
     @Column
     @Size(min = 0, max = 59)
     private Integer minutoFin;
-    
-    
-     @ManyToOne(fetch = FetchType.LAZY)
-    private TipoTarea idCategoria;
-    
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", nullable = false)
+    private TipoTarea idTipoTarea;
+
     @OneToMany(mappedBy = "idTarea", fetch = FetchType.LAZY)
     private List<DetalleTarea> listDetalleTarea;
-    
-    @OneToMany(mappedBy = "idCategoriaTarea", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "idTarea", fetch = FetchType.LAZY)
     private List<CategoriaTarea> listCategoriaTarea;
 
     public Integer getId() {
@@ -88,15 +89,13 @@ public class Tarea implements Serializable {
         this.listDetalleTarea = listDetalleTarea;
     }
 
-    public TipoTarea getIdCategoria() {
-        return idCategoria;
+    public TipoTarea getIdTipoTarea() {
+        return idTipoTarea;
     }
 
-    public void setIdCategoria(TipoTarea idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setIdTipoTarea(TipoTarea idTipoTarea) {
+        this.idTipoTarea = idTipoTarea;
     }
-
- 
 
     public Date getFechaInicio() {
         return fechaInicio;
@@ -154,9 +153,6 @@ public class Tarea implements Serializable {
         this.listCategoriaTarea = listCategoriaTarea;
     }
 
-    
-    
-    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

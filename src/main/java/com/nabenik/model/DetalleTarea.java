@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -30,6 +31,7 @@ public class DetalleTarea implements Serializable {
     private Boolean activo;
 
     @ManyToOne(fetch = FetchType.LAZY)
+     @JoinColumn(name="id", nullable=false)
     private Tarea idTarea;
 
     public Integer getId() {

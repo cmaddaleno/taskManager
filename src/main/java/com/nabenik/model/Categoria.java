@@ -28,7 +28,7 @@ public class Categoria implements Serializable {
     @Column
     private Boolean activo;
 
-    @OneToMany(mappedBy = "idCategoriaTarea", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idCategoria", fetch = FetchType.LAZY)
     private List<CategoriaTarea> listCategoriaTarea;
     
     
