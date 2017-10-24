@@ -1,5 +1,5 @@
 
-var module = angular.module('mpApp.public', ['mpApp.ui', 'ui.router', 'ngResource', 'html5.sortable', 'ngSanitize', 'ui.tinymce']);
+var module = angular.module('mpApp.public', ['mpApp.ui', 'ui.router', 'ngResource']);
 
 module.constant('comm', {
     url: '/taskManager/rest'

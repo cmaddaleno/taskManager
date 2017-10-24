@@ -1,6 +1,7 @@
-package com.nabenik.facade;
+package com.nabenik.dao;
 
-import com.nabenik.model.DetalleTarea;
+import com.nabenik.facade.AbstractFacade;
+import com.nabenik.model.Tarea;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,17 +10,18 @@ import javax.persistence.PersistenceContext;
  * DAO for Post
  */
 @Stateless
-public class DetalleTareaFacade extends AbstractFacade<DetalleTarea> {
+public class TareaFacade extends AbstractFacade<Tarea> {
 
     @PersistenceContext(unitName = "demo-persistence-unit")
     private EntityManager em;
 
 
-    public DetalleTareaFacade() {
-        super(DetalleTarea.class);
+    public TareaFacade() {
+        super(Tarea.class);
     }
     
-    public DetalleTareaFacade(Class<DetalleTarea> entityClass) {
+    
+    public TareaFacade(Class<Tarea> entityClass) {
         super(entityClass);
     }
 
@@ -27,5 +29,7 @@ public class DetalleTareaFacade extends AbstractFacade<DetalleTarea> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    
 
 }

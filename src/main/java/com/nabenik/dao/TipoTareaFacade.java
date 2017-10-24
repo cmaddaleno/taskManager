@@ -1,5 +1,6 @@
-package com.nabenik.facade;
+package com.nabenik.dao;
 
+import com.nabenik.facade.AbstractFacade;
 import com.nabenik.model.TipoTarea;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

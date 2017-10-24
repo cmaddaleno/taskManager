@@ -2,15 +2,15 @@
 var module = angular.module('mpApp.public');
 
 
-module.controller('searchTareaController', function ($scope, $log, tareaResource, filterFilter) {
+module.controller('searchTareaController', function ($scope, $log, tareaResource) {
     var pc = this;
-    
-    $scope.indiceActual      = 0;
-    $scope.tipoActual        = "pendientes";
-    
-    $scope.tareasActivas     = tareaResource.get("activas");
-    $scope.tareasPendientes  = tareaResource.get("pendientes");
-    $scope.tareasFinalizadas = tareaResource.get("finalizadas");
+//    
+//    $scope.indiceActual      = 0;
+//    $scope.tipoActual        = "pendientes";
+//    
+//    $scope.tareasActivas     = tareaResource.get("activas");
+//    $scope.tareasPendientes  = tareaResource.get("pendientes");
+//    $scope.tareasFinalizadas = tareaResource.get("finalizadas");
     
     
     pc.tareas = [];

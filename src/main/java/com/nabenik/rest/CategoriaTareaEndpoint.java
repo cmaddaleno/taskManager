@@ -1,10 +1,9 @@
 package com.nabenik.rest;
 
-import com.nabenik.facade.CategoriaFacade;
-import com.nabenik.facade.CategoriaTareaFacade;
-import com.nabenik.model.Categoria;
+import com.nabenik.dao.CategoriaTareaFacade;
 import com.nabenik.model.CategoriaTarea;
 import java.util.List;
+import javax.ejb.EJB;
 
 import javax.ejb.Stateless;
 import javax.persistence.OptimisticLockException;
@@ -16,7 +15,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
@@ -30,7 +28,7 @@ import javax.ws.rs.core.UriBuilder;
 @Consumes("application/json")
 public class CategoriaTareaEndpoint {
 
-    
+    @EJB
     CategoriaTareaFacade categoriaTareaService;
 
     @POST
@@ -60,8 +58,7 @@ public class CategoriaTareaEndpoint {
     }
 
     @GET
-    public List<CategoriaTarea> listAll(@QueryParam("start") Integer startPosition,
-            @QueryParam("max") Integer maxResult) {
+    public List<CategoriaTarea> listAll() {
         
         final List<CategoriaTarea> results = categoriaTareaService.findAll();
         return results;

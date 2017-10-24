@@ -1,8 +1,9 @@
 package com.nabenik.rest;
 
-import com.nabenik.facade.DetalleTareaFacade;
+import com.nabenik.dao.DetalleTareaFacade;
 import com.nabenik.model.DetalleTarea;
 import java.util.List;
+import javax.ejb.EJB;
 
 import javax.ejb.Stateless;
 import javax.persistence.OptimisticLockException;
@@ -14,7 +15,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
@@ -28,7 +28,7 @@ import javax.ws.rs.core.UriBuilder;
 @Consumes("application/json")
 public class DetalleTareaEndpoint {
 
-    
+    @EJB
     DetalleTareaFacade detalleTareaService;
 
     @POST
@@ -58,8 +58,7 @@ public class DetalleTareaEndpoint {
     }
 
     @GET
-    public List<DetalleTarea> listAll(@QueryParam("start") Integer startPosition,
-            @QueryParam("max") Integer maxResult) {
+    public List<DetalleTarea> listAll() {
         
         final List<DetalleTarea> results = detalleTareaService.findAll();
         return results;

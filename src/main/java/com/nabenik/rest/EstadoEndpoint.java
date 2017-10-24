@@ -1,9 +1,9 @@
 package com.nabenik.rest;
 
-import com.nabenik.facade.EstadoFacade;
-import com.nabenik.model.Categoria;
+import com.nabenik.dao.EstadoFacade;
 import com.nabenik.model.Estado;
 import java.util.List;
+import javax.ejb.EJB;
 
 import javax.ejb.Stateless;
 import javax.persistence.OptimisticLockException;
@@ -15,7 +15,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
@@ -29,7 +28,7 @@ import javax.ws.rs.core.UriBuilder;
 @Consumes("application/json")
 public class EstadoEndpoint {
 
-    
+    @EJB
     EstadoFacade estadoService;
 
     @POST
@@ -59,8 +58,7 @@ public class EstadoEndpoint {
     }
 
     @GET
-    public List<Estado> listAll(@QueryParam("start") Integer startPosition,
-            @QueryParam("max") Integer maxResult) {
+    public List<Estado> listAll() {
         
         final List<Estado> results = estadoService.findAll();
         return results;
