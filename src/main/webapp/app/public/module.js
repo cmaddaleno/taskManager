@@ -6,6 +6,12 @@ module.constant('comm', {
 });
 
 
+var public = 'public.';
+var tabla = 'Tarea';
+var estado = public.concat(tabla);
+
+
+
 module.config(function ($urlRouterProvider, $stateProvider) {
     $urlRouterProvider.otherwise('/')
     $stateProvider.state('public', {
@@ -16,51 +22,52 @@ module.config(function ($urlRouterProvider, $stateProvider) {
     });
 
     
-    $stateProvider.state('public.tarea', {
-        url: '/tarea',
+    
+    $stateProvider.state(estado, {
+        url: '/'.concat(tabla),
         data: {
-            title: 'Tareas'
+            title: ''.concat(tabla).concat('s')
         },
         views: {
             "root@app": {
-                controller: 'searchTareaController',
-                templateUrl: 'app/public/tarea/search.html'
+                controller: 'search'.concat(tabla).concat('Controller'),
+                templateUrl: 'app/public/'.concat(tabla).concat('/search.html')
             }
         }, resolve: {
             searchTareaFiles: function ($ocLazyLoad) {
-                return $ocLazyLoad.load(['app/public/tarea/tarea-controller.js',
-                    'app/public/tarea/tarea-resource.js']);
+                return $ocLazyLoad.load(['app/public/'.concat(tabla).concat('/').concat(tabla).concat('-controller.js'),
+                     'app/public/'.concat(tabla).concat('/').concat(tabla).concat('-resource.js')]);
             }
         }
     });
 
-    $stateProvider.state('public.tarea.new', {
-        url: '/new-tarea',
+    $stateProvider.state('public.'.concat(tabla).concat('.new'), {
+        url: '/new-'.concat(tabla),
         views: {
             "root@app": {
-                templateUrl: 'app/public/tarea/detail.html',
-                controller: 'newTareaController'
+                templateUrl: 'app/public/'.concat(tabla).concat('/detail.html'),
+                controller: 'new'.concat(tabla).concat('Controller')
             }
         }, resolve: {
             searchTareaFiles: function ($ocLazyLoad) {
-                return $ocLazyLoad.load(['app/public/tarea/tarea-controller.js',
-                    'app/public/tarea/tarea-resource.js']);
+                return $ocLazyLoad.load(['app/public/'.concat(tabla).concat('/').concat(tabla).concat('-controller.js'),
+                    'app/public/'.concat(tabla).concat('/').concat(tabla).concat('-resource.js')]);
             }
         }
 
     });
 
-    $stateProvider.state('public.tarea.edit', {
-        url: '/update-tarea/:id',
+    $stateProvider.state('public.'.concat(tabla).concat('.edit'), {
+        url: '/update-'.concat(tabla).concat('/:id'),
         views: {
             "root@app": {
-                templateUrl: 'app/public/tarea/detail.html',
-                controller: 'editTareaController'
+                templateUrl: 'app/public/'.concat(tabla).concat('/detail.html'),
+                controller: 'edit'.concat(tabla).concat('Controller')
             }
         }, resolve: {
             searchTareasFiles: function ($ocLazyLoad) {
-                return $ocLazyLoad.load(['app/public/tarea/tarea-controller.js',
-                    'app/public/automovil/tarea-resource.js']);
+                 return $ocLazyLoad.load(['app/public/'.concat(tabla).concat('/').concat(tabla).concat('-controller.js'),
+                    'app/public/'.concat(tabla).concat('/').concat(tabla).concat('-resource.js')]);
             }
         }
 

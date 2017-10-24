@@ -23,7 +23,7 @@ import javax.ws.rs.core.UriBuilder;
  *
  */
 @Stateless
-@Path("/tarea")
+@Path("/Tarea")
 @Produces("application/json")
 @Consumes("application/json")
 public class TareaEndpoint {
