@@ -15,6 +15,10 @@ public class EstadoFacade extends AbstractFacade<Estado> {
     private EntityManager em;
 
    
+    public EstadoFacade() {
+        super(Estado.class);
+    }
+    
     public EstadoFacade(Class<Estado> entityClass) {
         super(entityClass);
     }

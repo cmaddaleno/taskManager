@@ -15,6 +15,11 @@ public class TareaFacade extends AbstractFacade<Tarea> {
     private EntityManager em;
 
 
+    public TareaFacade() {
+        super(Tarea.class);
+    }
+    
+    
     public TareaFacade(Class<Tarea> entityClass) {
         super(entityClass);
     }

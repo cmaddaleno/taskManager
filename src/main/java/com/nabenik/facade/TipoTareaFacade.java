@@ -15,6 +15,12 @@ public class TipoTareaFacade extends AbstractFacade<TipoTarea> {
     private EntityManager em;
 
 
+    
+    public TipoTareaFacade() {
+        super(TipoTarea.class);
+    }
+    
+    
     public TipoTareaFacade(Class<TipoTarea> entityClass) {
         super(entityClass);
     }

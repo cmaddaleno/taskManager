@@ -14,6 +14,10 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
     @PersistenceContext(unitName = "demo-persistence-unit")
     private EntityManager em;
 
+    public CategoriaFacade() {
+        super(Categoria.class);
+    }
+
    
 
     public CategoriaFacade(Class<Categoria> entityClass) {

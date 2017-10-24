@@ -2,6 +2,7 @@ package com.nabenik.model;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,7 +22,10 @@ public class DetalleTarea implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
+    //@Column(name = "id", updatable = false, nullable = false)
+     @Column(name = "id")
+    @Basic(optional = false)
+    @NotNull
     private Integer id;
 
     @Column
@@ -30,8 +35,8 @@ public class DetalleTarea implements Serializable {
     @Column
     private Boolean activo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-     @JoinColumn(name="id", nullable=false)
+    @ManyToOne
+     @JoinColumn(name="id", insertable=false, updatable=false)
     private Tarea idTarea;
 
     public Integer getId() {

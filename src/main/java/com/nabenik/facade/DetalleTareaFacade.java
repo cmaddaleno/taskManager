@@ -15,6 +15,10 @@ public class DetalleTareaFacade extends AbstractFacade<DetalleTarea> {
     private EntityManager em;
 
 
+    public DetalleTareaFacade() {
+        super(DetalleTarea.class);
+    }
+    
     public DetalleTareaFacade(Class<DetalleTarea> entityClass) {
         super(entityClass);
     }

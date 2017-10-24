@@ -4,15 +4,16 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -24,7 +25,9 @@ public class Tarea implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id")
+    @Basic(optional = false)
+    @NotNull
     private Integer id;
 
     @Column
@@ -55,14 +58,18 @@ public class Tarea implements Serializable {
     @Size(min = 0, max = 59)
     private Integer minutoFin;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id", insertable=false, updatable=false)
     private TipoTarea idTipoTarea;
+    
+    @ManyToOne
+    @JoinColumn(name = "id", insertable=false, updatable=false)
+    private Estado idEstado;
 
-    @OneToMany(mappedBy = "idTarea", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idTarea")
     private List<DetalleTarea> listDetalleTarea;
 
-    @OneToMany(mappedBy = "idTarea", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idTarea")
     private List<CategoriaTarea> listCategoriaTarea;
 
     public Integer getId() {
@@ -79,6 +86,14 @@ public class Tarea implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Estado getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Estado idEstado) {
+        this.idEstado = idEstado;
     }
 
     public List<DetalleTarea> getListDetalleTarea() {

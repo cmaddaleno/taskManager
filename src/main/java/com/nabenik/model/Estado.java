@@ -3,10 +3,14 @@ package com.nabenik.model;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -17,7 +21,9 @@ public class Estado implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id")
+    @Basic(optional = false)
+    @NotNull
     private Integer id;
     
     @Column
@@ -26,6 +32,10 @@ public class Estado implements Serializable {
     @Column
     private Boolean activo;
 
+    
+    @OneToMany(mappedBy = "idEstado")
+    private List<Tarea> listTarea;
+    
     public Integer getId() {
         return id;
     }
@@ -48,6 +58,14 @@ public class Estado implements Serializable {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public List<Tarea> getListTarea() {
+        return listTarea;
+    }
+
+    public void setListTarea(List<Tarea> listTarea) {
+        this.listTarea = listTarea;
     }
     
 

@@ -3,12 +3,13 @@ package com.nabenik.model;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -19,7 +20,9 @@ public class Categoria implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id")
+    @Basic(optional = false)
+    @NotNull
     private Integer id;
 
     @Column
@@ -28,7 +31,7 @@ public class Categoria implements Serializable {
     @Column
     private Boolean activo;
 
-    @OneToMany(mappedBy = "idCategoria", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idCategoria")
     private List<CategoriaTarea> listCategoriaTarea;
     
     
