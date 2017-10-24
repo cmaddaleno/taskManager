@@ -17,12 +17,12 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Fecha Inicio</th>
+                <th>Hora Inicio</th>
             </tr>
             <tr ng-repeat="p in tarea.tareas">
                 <td> <a ui-sref="public.tarea.edit({ id: p.id })">{{p.id}}</a></td>
                 <td>{{p.nombre}}</td>
-                <td>{{p.fechaInicio}}</td>
+                <td>{{p.horaInicio}}</td>
             </tr>
         </table>
     </div> 

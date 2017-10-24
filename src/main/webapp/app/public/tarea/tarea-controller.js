@@ -35,7 +35,7 @@ module.controller('searchTareaController', function ($scope, $log, tareaResource
 });
 
 
-module.controller('editTareaController', function ($scope, $log, $stateParams, $location, tareaResource) {
+module.controller('editTareaController', function ($scope, $log, $stateParams, $location, $state, tareaResource) {
     $scope.location = $location.path();
     $scope.tarea = {};
     $scope.get = function(){
@@ -56,6 +56,8 @@ module.controller('editTareaController', function ($scope, $log, $stateParams, $
         var successCallback = function(data, responseHeaders) {
             $log.info('updating successfuly ' + data);
             $location.path('/tarea');
+            $state.go('public.tarea');
+            
         };
 
         var errorCallback = function(responseHeaders) {

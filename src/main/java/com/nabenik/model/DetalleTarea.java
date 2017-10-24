@@ -22,14 +22,11 @@ public class DetalleTarea implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    //@Column(name = "id", updatable = false, nullable = false)
-     @Column(name = "id")
-    @Basic(optional = false)
-    @NotNull
+    @Column(name = "id", updatable = false, nullable = false)
     private Integer id;
 
     @Column
-    @Size(min = 1, max = 1000)
+    //@Size(min = 1, max = 1000)
     private String descripcion;
 
     @Column

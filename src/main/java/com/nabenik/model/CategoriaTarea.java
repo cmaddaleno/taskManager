@@ -21,9 +21,7 @@ public class CategoriaTarea implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    @Basic(optional = false)
-    @NotNull
+       @Column(name = "id", updatable = false, nullable = false)
     private Integer id;
 
     @JoinColumn(name = "idTarea", referencedColumnName = "id", insertable=false, updatable=false)

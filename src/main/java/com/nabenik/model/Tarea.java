@@ -26,10 +26,10 @@ public class Tarea implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    private Integer id;
 
     @Column
-    @Size(min = 1, max = 500)
+    //@Size(min = 1, max = 500)
     private String nombre;
 
     @Column
@@ -37,11 +37,11 @@ public class Tarea implements Serializable {
     private Date fechaInicio;
 
     @Column
-    @Size(min = 1, max = 24)
+   // @Size(min = 1, max = 24)
     private Integer horaInicio;
 
     @Column
-    @Size(min = 0, max = 59)
+//    @Size(min = 0, max = 59)
     private Integer minutoInicio;
 
     @Column
@@ -49,19 +49,19 @@ public class Tarea implements Serializable {
     private Date fechaFin;
 
     @Column
-    @Size(min = 1, max = 24)
+    //@Size(min = 1, max = 24)
     private Integer horaFin;
 
     @Column
-    @Size(min = 0, max = 59)
+    //@Size(min = 0, max = 59)
     private Integer minutoFin;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable=false, updatable=false)
+    @JoinColumn(name = "id", insertable = false, updatable = false)
     private TipoTarea idTipoTarea;
-    
+
     @ManyToOne
-    @JoinColumn(name = "id", insertable=false, updatable=false)
+    @JoinColumn(name = "id", insertable = false, updatable = false)
     private Estado idEstado;
 
     @OneToMany(mappedBy = "idTarea")
@@ -70,11 +70,11 @@ public class Tarea implements Serializable {
     @OneToMany(mappedBy = "idTarea")
     private List<CategoriaTarea> listCategoriaTarea;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
