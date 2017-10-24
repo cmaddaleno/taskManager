@@ -25,10 +25,8 @@ public class Tarea implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    @Basic(optional = false)
-    @NotNull
-    private Integer id;
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
 
     @Column
     @Size(min = 1, max = 500)
@@ -72,11 +70,11 @@ public class Tarea implements Serializable {
     @OneToMany(mappedBy = "idTarea")
     private List<CategoriaTarea> listCategoriaTarea;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

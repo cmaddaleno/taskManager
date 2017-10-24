@@ -55,7 +55,7 @@ module.controller('editTareaController', function ($scope, $log, $stateParams, $
 
         var successCallback = function(data, responseHeaders) {
             $log.info('updating successfuly ' + data);
-            $location.path('/autos');
+            $location.path('/tarea');
         };
 
         var errorCallback = function(responseHeaders) {
@@ -72,7 +72,7 @@ module.controller('editTareaController', function ($scope, $log, $stateParams, $
 
         var successCallback = function(data, responseHeaders) {
             $log.info('removed successfuly ' + data);
-            $location.path('/autos');
+            $location.path('/tarea');
         };
 
         var errorCallback = function(responseHeaders) {
@@ -107,7 +107,7 @@ module.controller('newTareaController', function ($scope, $log, tareaResource) {
 
     };
     
-    $scope.cancel = function () {
+    $scope.cancelar = function () {
         $scope.tarea = {};
     };
 

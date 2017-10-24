@@ -1,7 +1,7 @@
 var module = angular.module('mpApp.public');
 
 
-module.factory('TareaResource', function ($resource, comm) {
+module.factory('tareaResource', function ($resource, comm) {
     return $resource(comm.url + '/tarea/:id', {
             id : '@id'
         }, {
